@@ -1,0 +1,70 @@
+STOCK CONECTA
+Espacio personal para Edna Fernanda Sánchez Cabrera · fer.ednasa@gmail.com
+Entrega: 25 de noviembre de 2026 · Centro IBEROamericano
+
+PARA EMPEZAR
+Abre index.html. Lee Cómo funciona y entra a Espacio de trabajo.
+1. Crea un SKU real. Registra nombre, costo propio, bodega y reservas. Usa un recargo sobre costo o un precio manual.
+2. Abre Proveedor. Descarga la plantilla Excel vacía o la CSV vacía y completa tus datos reales. También puedes adaptar un archivo del proveedor a esos encabezados.
+3. Carga el archivo. En XLSX elige la hoja. Completa fecha y origen si no vienen en columnas. Prepara la vista previa, revisa cada coincidencia y confirma.
+4. Registra una venta local. Revisa cantidad, disponibilidad propia y total antes de confirmar. Si fue un error, revierte una sola vez con un motivo.
+5. Descarga el catálogo CSV para revisión y un respaldo JSON para recuperar el espacio.
+
+PÁGINAS
+index.html: presentación y primer ejercicio.
+enfoque.html: reglas de cálculo, tratamiento de proveedor y conexiones pendientes.
+herramientas.html: catálogo, importación, POS local, historial, ajustes y respaldo.
+contacto.html: contacto real y preparación de un borrador de correo.
+404.html: recuperación de una ruta inexistente.
+
+ARCHIVO DEL PROVEEDOR
+Obligatorias: sku, stock_proveedor.
+Opcionales: costo, fecha_fuente, fuente. Fecha y fuente deben estar en cada fila o completarse en el formulario como valores de respaldo.
+La plantilla incluye las cinco columnas. Encabezados en la primera fila, sin títulos previos, celdas combinadas ni columnas adicionales. SKU como texto para conservar ceros iniciales. Se normalizan espacios exteriores y mayúsculas; no se cambian guiones ni se adivinan equivalencias.
+Stock: entero de 0 a 10.000.000. Costo: 0 a 10.000.000 con máximo dos decimales. Fecha: AAAA-MM-DD, real y no futura. En XLSX se admiten fechas estándar y texto ISO. Usa punto decimal y sin separadores de miles en CSV.
+Máximos: 2.000 filas de datos, 64 columnas, CSV 3 MB, XLSX 5 MB; ZIP descomprimido 25 MB, parte XML 8 MB y 200 entradas ZIP.
+XLSX es un lector local real de OpenXML: ZIP, relaciones del libro, hoja elegida, shared strings / inline strings, números, fechas y resultados almacenados de fórmulas. No recalcula fórmulas. Si falta el resultado, hay errores de celda, macros, vínculos externos, hojas avanzadas, objetos, formato no reconocido o cifrado, se rechaza con explicación. Los estilos numéricos de SKU con ceros de relleno se rechazan: conviértelos a texto. .xls y .xlsm no se admiten. No se ejecuta ningún contenido del libro.
+Se requiere un navegador que admita DecompressionStream con deflate-raw para XLSX. Si no lo ofrece, la aplicación lo explica y puedes usar CSV UTF-8. No necesita Internet para leer el archivo.
+
+REGLAS OPERATIVAS
+Disponible propio = bodega − reservas. El stock de proveedor no se suma a bodega.
+Precio por recargo = costo propio × (1 + recargo / 100), redondeado a dos decimales. Recargo no equivale a margen sobre venta. No incluye comisiones, impuestos ni envío. El costo del proveedor queda separado del costo propio y no modifica el precio automáticamente.
+Cada importación actualiza solo SKU coincidentes; desconocidos se muestran y se omiten. SKU repetidos o datos inválidos bloquean toda la importación. Una fuente más antigua que la ya registrada se rechaza. Obsolescencia = antigüedad mayor al umbral configurable, inicialmente 7 días.
+Una venta no puede superar bodega menos reservas. No procesa pagos, no emite comprobantes fiscales, no modifica una publicación de Mercado Libre. La reversión devuelve unidades exactamente una vez y conserva el motivo.
+El catálogo exportado es para revisar y preparar una integración; no cumple por sí mismo un esquema universal de publicación de Mercado Libre.
+Moneda inicialmente MXN por el contexto de México. Puedes elegir otra antes de registrar ventas; no se convierte dinero. Tras la primera venta se fija la etiqueta para no reinterpretar el historial.
+Máximo local: 2.000 SKU, 10.000 ventas y 20.000 eventos de bitácora. Es un espacio individual, no un sistema multiusuario de producción.
+
+LO QUE FALTA PARA CONECTAR
+Edna no proporcionó una web, URL de proveedor, archivo real de ejemplo ni credenciales. Se requieren muestra de Excel, acuerdos/permiso de acceso del proveedor y un backend autorizado. Mercado Libre requiere aplicación, OAuth, permisos y custodia de tokens en servidor; nunca dentro de estos archivos HTML. Definir SKU/publicaciones/variaciones, reglas de precio, frecuencia, eventos de ventas y conciliación antes de automatizar escrituras.
+
+PUBLICACIÓN MANUAL EN NETLIFY
+1. Descomprime el ZIP individual. Mantén index.html, las demás páginas y assets/ en la misma carpeta.
+2. Revisa primero la operación local. No se necesita npm, instalación de paquetes ni compilación.
+3. Cuando decidas publicarlo, usa la carga manual de la carpeta en Netlify. No subas el ZIP de toda la promoción como un único sitio.
+4. La configuración incluida usa [build] publish = ".". No hay comando de compilación. Netlify sirve 404.html para direcciones inexistentes.
+5. _headers contiene cabeceras defensivas. No hay scripts, fuentes ni bibliotecas de CDN.
+6. El sitio entregado no fue publicado. No contiene una cuenta, base de datos ni sincronización entre dispositivos.
+
+DATOS Y RESPALDOS
+Los datos se guardan en localStorage de este navegador y origen. La navegación entre sus páginas conserva el espacio mientras el navegador permita almacenamiento. El comportamiento de localStorage al abrir archivos file:// puede variar; la aplicación avisa y mantiene trabajo en memoria si el almacenamiento no funciona. Al publicar en otro dominio tendrás otro espacio vacío: exporta JSON antes y restáuralo allí.
+No guardes claves, contraseñas ni tokens. Los datos no se envían a servidores. Los cambios en otra pestaña se detectan al guardar y exigen revisar nuevamente la operación. Si localStorage está bloqueado, lleno o contiene un respaldo incompatible, se trabaja en memoria y se muestra aviso; descarga JSON antes de cerrar.
+La restauración valida estructura, números, fechas y referencias, muestra contenido resumido y solicita confirmación antes de reemplazar. Una importación inválida no altera el estado previo. CSV protege celdas de texto que empiezan como fórmulas de hoja de cálculo; por ello puede añadirse un apóstrofo protector.
+
+CONTACTO
+El formulario local prepara un borrador de correo. El visitante revisa el texto y abre su aplicación de correo para enviarlo. No envía, adjunta ni registra leads por sí mismo. No se agregaron teléfonos, agendas, testimonios, cifras comerciales ni formularios externos inventados.
+
+COMPROBACIÓN
+Se revisaron código, recursos/enlaces locales y flujos con pruebas Node sobre el JavaScript entregado. No hubo inspección visual en navegador, captura, servidor de vista previa ni publicación: se respetó la restricción previa sobre abrir archivos locales en navegador. Consulta PRUEBAS.md para resultados y límites de la revisión.
+
+REVISIÓN 26/11/2026
+Se conserva schema 1 y el formato de los respaldos anteriores. Los precios guardados y ventas históricas se mantienen al cargar/restaurar. El recargo se recalcula con aritmética decimal y redondeo de mitad hacia arriba al crear o guardar explícitamente una ficha; así se corrigen diferencias de centavos sin cambiar silenciosamente un catálogo anterior.
+Una ficha abierta antes de una venta u otro cambio exige volver a pulsar Editar antes de guardarse. Las lecturas de archivos descartadas ya no pueden reemplazar la vista previa vigente; cambiar hoja, fuente o fecha invalida la revisión anterior. La restauración vuelve a comprobar los datos al confirmar. Los errores de confirmación se muestran dentro del diálogo y no aplican cambios.
+
+Un cambio nuevo se rechaza antes de guardar si excede 15 MiB de JSON UTF-8. El respaldo se descarga compacto cuando el formato con sangría superaría ese límite; conserva los mismos datos y esquema.
+
+CONCORDANCIA CON EL FORMULARIO — 26/11/2026
+Se contrastaron las solicitudes con las funciones del código y el contenido visible. NECESIDADES_Y_ALCANCE.md identifica qué está disponible localmente, qué cubre una parte del objetivo y qué archivo o conexión sigue faltando. Esta revisión no convierte una preparación manual en automatización conectada.
+
+INTERFAZ REVISADA
+La presentación y el espacio de trabajo se reorganizaron visualmente. Los registros, el formato de respaldo y las reglas de cálculo se conservan. La navegación de áreas admite enlaces con fragmento y el acceso Nuevo producto abre la ficha correspondiente. Los elementos de entrada animada respetan movimiento reducido; sin JavaScript adicional, el contenido sigue visible.

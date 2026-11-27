@@ -1,0 +1,134 @@
+{
+  "date": "2026-11-26",
+  "original_answer": {
+    "fecha": "24/11/2026, 7:35:25 p.m.",
+    "entrega": "Revisar envío de correo · respuesta guardadaActualizar estado",
+    "nombre": "EDNA FERNANDA SANCHEZ CABRERA",
+    "email": "fer.ednasa@gmail.com",
+    "pais": "mexico",
+    "proyectos": "vendo mercaderia por mercado libre",
+    "objetivos": "automatizar procesos con mi propio punto de venta, que actualice stoc, precios, publicaciones, etc.  lo mas importante para mi, que mi agente busque stoc en las paginas de mi proveedor, excel que yo le mando .",
+    "estado_web": "no_tengo",
+    "web_deseos": "me gustaria crear una donde el stoc con mis proveedores y en bodega se actualice para la venta.",
+    "automatizacion": "actualizacion de stoc, precios.",
+    "experiencia_ia": "principiante",
+    "crm": "Enviar al CRM"
+  },
+  "audit": {
+    "folder": "04_edna_sanchez_stock_conecta",
+    "name": "EDNA FERNANDA SANCHEZ CABRERA",
+    "verdict": "La operación local concuerda con venta e inventario por SKU. La lectura del Excel real de Edna requiere validar su estructura. Su prioridad de agente proveedor y sincronización de Mercado Libre sigue pendiente.",
+    "requirements": [
+      {
+        "source_field": "objetivos",
+        "quote": "mi propio punto de venta",
+        "need": "Registrar ventas sobre disponibilidad propia.",
+        "status": "local",
+        "evidence": [
+          "herramientas.html: Punto de venta y ventas registradas",
+          "assets/core.js: sell, reverse descuentan bodega y permiten reversión única con motivo"
+        ],
+        "pending": "El alcance es un registro local: no procesa pagos ni emite comprobantes fiscales.",
+        "coverage": "Registra ventas locales, calcula su total y descuenta únicamente la disponibilidad de bodega después de reservas. Permite revertir una venta una sola vez y conservar el motivo."
+      },
+      {
+        "source_field": "web_deseos",
+        "quote": "el stoc con mis proveedores y en bodega se actualice para la venta.",
+        "need": "Distinguir y actualizar stock de proveedor y bodega.",
+        "status": "parcial",
+        "evidence": [
+          "assets/core.js: product separa stock/reserved de supplier; sell actualiza bodega",
+          "assets/core.js: supplierPreview/applySupplier actualizan proveedor tras revisión"
+        ],
+        "pending": "Bodega cambia por operación manual/venta local y proveedor por archivo confirmado; no hay lectura automática ni conciliación de ventas remotas.",
+        "coverage": "Muestra por separado bodega, reservas y stock del proveedor. La bodega se actualiza con las operaciones locales y el proveedor mediante un archivo revisado y confirmado."
+      },
+      {
+        "source_field": "automatizacion",
+        "quote": "actualizacion de stoc, precios.",
+        "need": "Definir y actualizar precios mediante reglas.",
+        "status": "local",
+        "evidence": [
+          "herramientas.html: costo propio, recargo y precio manual",
+          "assets/core.js: product(recalculate=true), upsert; assets/data-utils.js: markupPrice"
+        ],
+        "pending": "El costo importado del proveedor no cambia automáticamente costo propio o precio. Faltan reglas completas para automatizar esa decisión y las comisiones/envíos/impuestos aplicables.",
+        "coverage": "Calcula el precio a partir del costo propio y el recargo indicado, o permite fijarlo manualmente. Conservar el costo del proveedor por separado evita cambiar el precio sin una decisión explícita."
+      },
+      {
+        "source_field": "objetivos",
+        "quote": "publicaciones",
+        "need": "Actualizar publicaciones de Mercado Libre.",
+        "status": "pendiente",
+        "evidence": [
+          "index.html y herramientas.html declaran ausencia de sincronización con Mercado Libre",
+          "assets/core.js: catalogCSV exporta un catálogo para revisión"
+        ],
+        "pending": "Cuenta/aplicación autorizada, relación SKU/publicación/variación, reglas de precio y stock, servicio de conexión y conciliación. El CSV no publica.",
+        "coverage": "Exporta un catálogo CSV con precios, disponibilidad propia y datos del proveedor para revisión. No modifica publicaciones ni sincroniza con Mercado Libre."
+      },
+      {
+        "source_field": "objetivos",
+        "quote": "que mi agente busque stoc en las paginas de mi proveedor",
+        "need": "Consultar stock en las páginas del proveedor mediante agente.",
+        "status": "pendiente",
+        "evidence": [
+          "enfoque.html: Tu proveedor y fase conectada",
+          "herramientas.html: importación de copia de archivo, sin consulta remota"
+        ],
+        "pending": "URL del proveedor, método permitido de acceso, significado del stock, presentaciones, frecuencia y conector autorizado. No se ejecuta un agente de consulta.",
+        "coverage": "Permite cargar una copia de los datos del proveedor y conservar su fecha y origen. No hay un agente que visite sus páginas o busque stock automáticamente."
+      },
+      {
+        "source_field": "objetivos",
+        "quote": "excel que yo le mando",
+        "need": "Leer el Excel que suministre Edna.",
+        "status": "parcial",
+        "evidence": [
+          "assets/xlsx-reader.js: lectura local de XLSX OpenXML",
+          "assets/app.js: selección de hoja, vista previa y confirmación; assets/core.js: supplierPreview valida encabezados y SKU"
+        ],
+        "pending": "Hay lector real de XLSX/CSV con encabezados definidos y límites documentados. Falta el archivo real para validar su formato o preparar un mapeo de sus columnas.",
+        "coverage": "Lee archivos XLSX y CSV con los encabezados admitidos, permite seleccionar una hoja y muestra coincidencias y diferencias antes de actualizar. Falta contrastar ese recorrido con el Excel real de Edna."
+      },
+      {
+        "source_field": "web_deseos",
+        "quote": "me gustaria crear una donde el stoc con mis proveedores y en bodega se actualice para la venta.",
+        "need": "Disponer de una web para manejar esa operación.",
+        "status": "local",
+        "evidence": [
+          "index.html, enfoque.html, herramientas.html, contacto.html, 404.html",
+          "assets/styles.css y fuentes locales; LEEME.txt: apertura y despliegue"
+        ],
+        "pending": "La entrega es un espacio individual del navegador. La operación compartida y las actualizaciones externas requieren servicios adicionales.",
+        "coverage": "Incluye una web con presentación, método, catálogo, punto de venta y contacto. Los registros funcionan en el navegador de la persona que utiliza la herramienta."
+      }
+    ],
+    "changes": [
+      {
+        "file": "index.html",
+        "detail": "La portada aclara que XLSX/CSV deben usar los encabezados admitidos, sin prometer interpretar cualquier libro de Excel."
+      },
+      {
+        "file": "NECESIDADES_Y_ALCANCE.md; LEEME.txt",
+        "detail": "Se explicita la cobertura parcial del Excel real y la prioridad pendiente de consultar proveedor/sincronizar Mercado Libre."
+      }
+    ],
+    "tests": [
+      "Lectura de formulario, cuatro páginas, guía y product/upsert/sell/supplierPreview/applySupplier/catalogCSV.",
+      "Contraste de hashes confirma que no cambió ningún JS, cálculo, clave o esquema.",
+      "IDs, enlaces y fragmentos locales PASS. No se repitieron pruebas de funciones sin cambios."
+    ],
+    "source_record": {
+      "date": "24/11/2026, 7:35:25 p.m.",
+      "country": "mexico",
+      "experience": "principiante",
+      "email": "fer.ednasa@gmail.com"
+    },
+    "changed_files": [
+      "04_edna_sanchez_stock_conecta/NECESIDADES_Y_ALCANCE.md",
+      "04_edna_sanchez_stock_conecta/index.html",
+      "04_edna_sanchez_stock_conecta/LEEME.txt"
+    ]
+  }
+}

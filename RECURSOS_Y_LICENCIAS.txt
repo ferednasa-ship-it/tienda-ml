@@ -1,0 +1,36 @@
+RECURSOS Y LICENCIAS
+Entrega: 25/11/2026
+
+Código, composición, copy e ilustraciones nativas CSS: creados para esta entrega. Se pueden editar para el proyecto del alumno. No se incluyeron fotos de terceros ni imágenes que pretendan representar instalaciones o clientes reales.
+Fuentes locales: Noto Sans, Noto Sans Display y fuente monoespaciada suministradas en assets/fonts/. Consulta assets/fonts/LICENSES.txt para nombres y licencias exactos de los archivos. No se cargan desde CDN.
+No hay dependencias npm ni librerías remotas. Las plantillas están vacías; los archivos en pruebas/fixtures son exclusivamente sintéticos para QA y nunca se importan automáticamente.
+
+FUENTES OFICIALES CONSULTADAS EL 25/11/2026
+- Netlify: configuración de publicación [build] / publish:
+  https://docs.netlify.com/build/configure-builds/file-based-configuration/
+- Netlify: cabeceras _headers:
+  https://docs.netlify.com/manage/routing/headers/
+
+Las páginas del sitio no representan una revisión jurídica, fiscal ni contable. Los límites operativos y fórmulas son decisiones del producto documentadas, no requisitos regulatorios.
+
+FUENTES DE LA FUTURA CONEXIÓN Y DEL FORMATO EXCEL
+- Mercado Libre: Quick Start de integración in-house (OAuth, permisos, backend, protección de tokens):
+  https://developers.mercadolibre.com.mx/es_mx/primeros-pasos-in-house
+- Mercado Libre: autenticación y autorización:
+  https://developers.mercadolibre.com.mx/es_ar/como-empezar/autenticacion-y-autorizacion
+- Mercado Libre: gestión de identidades y accesos:
+  https://developers.mercadolibre.com.mx/es_ar/servicios-consulta-usuarios/gestion-de-identidades-y-accesos-oauth-y-tokens
+- Microsoft: estructura SpreadsheetML:
+  https://learn.microsoft.com/en-us/office/open-xml/spreadsheet/structure-of-a-spreadsheetml-document
+- Microsoft: shared strings:
+  https://learn.microsoft.com/en-us/office/open-xml/spreadsheet/working-with-the-shared-string-table
+- Microsoft: fórmulas y valor guardado en <v>:
+  https://learn.microsoft.com/en-us/office/open-xml/spreadsheet/working-with-formulas
+
+El lector assets/xlsx-reader.js es implementación acotada propia, no SDK de Microsoft ni certificación de compatibilidad universal con Excel. Lee OpenXML localmente y rechaza contenido no admitido. Los fixtures se crearon con xlsxwriter y openpyxl solo durante QA; esos paquetes no son necesarios para abrir el sitio ni ejecutar las pruebas Node incluidas.
+
+REVISIÓN VISUAL 26 NOVIEMBRE
+assets/hero-illustration.svg: ilustración vectorial original del flujo de trabajo, sin métricas ni resultados reales. Código, iconos y animaciones locales preparados para esta entrega. assets/premium.css y experience.js aportan la nueva interfaz y movimiento reducido.
+assets/commerce-premium.png: imagen conceptual generada para esta entrega. Representa preparación de paquetes; no documenta el almacén, productos ni instalaciones reales de Edna.
+
+assets/mesa-de-empaque.webp: versión WebP optimizada del recurso conceptual original assets/commerce-premium.png.
